@@ -42,6 +42,16 @@ $ads = [
         'url' => 'img/lot-6.jpg'
     ]
 ];
+
+function format_price($value)
+{
+    $value = ceil($value);
+    if ($value > 1000) {
+        $value = number_format($value, 0, '', ' ');
+    }
+    return $value . ' <b class="rub">р</b>';
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -121,7 +131,7 @@ $ads = [
                     <div class="lot__state">
                         <div class="lot__rate">
                             <span class="lot__amount">Стартовая цена</span>
-                            <span class="lot__cost"><?=$lot['price']?><b class="rub">р</b></span>
+                            <span class="lot__cost"><?=format_price($lot['price'])?></span>
                         </div>
                         <div class="lot__timer timer">
                             12:23
