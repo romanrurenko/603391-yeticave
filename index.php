@@ -9,7 +9,7 @@ $main_content = include_template('index.php', [
 ]);
 
 $layout_content = include_template('layout.php', [
-    'page_title' => 'YetiCave - Главная страница',
+    'page_title' => $page_title,
     'content' => $main_content,
     'categories' => $categories,
     'user_name' => $user_name,
