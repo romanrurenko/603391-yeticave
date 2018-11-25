@@ -29,3 +29,12 @@ function esc($str)
     $text = htmlspecialchars($str);
     return $text;
 }
+
+function get_time_until_midnight()
+{
+    $next_day = strtotime('tomorrow');
+    $diff = $next_day - time();
+    $hours = floor($diff / 3600);
+    $minutes = floor(($diff % 3600) / 60);
+    return  $hours . ':' . $minutes;
+}

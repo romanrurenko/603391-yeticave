@@ -1,7 +1,7 @@
 <?php
-require_once('functions.php');
+require_once('config.php');
 require_once('data.php');
-
+require_once('functions.php');
 
 $main_content = include_template('index.php', [
     'ads' => $ads,
@@ -15,5 +15,6 @@ $layout_content = include_template('layout.php', [
     'user_name' => $user_name,
     'is_auth' => $is_auth
 ]);
+
 
 print($layout_content);

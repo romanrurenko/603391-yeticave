@@ -36,7 +36,7 @@
                             <span class="lot__cost"><?= format_price(esc($lot['price'])) ?></span>
                         </div>
                         <div class="lot__timer timer">
-                            12:23
+                            <?= get_time_until_midnight(); ?>
                         </div>
                     </div>
                 </div>
