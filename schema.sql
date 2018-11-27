@@ -6,7 +6,7 @@ USE `yeticave`;
 
 CREATE TABLE IF NOT EXISTS `bids` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `start_date` int(11) unsigned NOT NULL,
+  `start_date` timestamp NOT NULL,
   `user_id` int(11) unsigned NOT NULL,
   `lot_id` int(11) unsigned NOT NULL,
   `amount` int(11) unsigned NOT NULL,
