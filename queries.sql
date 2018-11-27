@@ -1,4 +1,4 @@
-use 'yeticave';
+USE 'yeticave';
 
 INSERT INTO `categories` (`id`, `name`) VALUES
 (4, 'Ботинки'),
@@ -29,22 +29,23 @@ INSERT INTO `bids` (`id`, `start_date`, `user_id`, `lot_id`, `amount`) VALUES
 (5, '2018-11-27 09:47:52', 3, 1, 12000);
 
 #получить все категории;
-select name from categories;
+SELECT NAME FROM categories;
 
 #получить самые новые, открытые лоты. Каждый лот должен включать название, стартовую цену, ссылку на изображение, цену, название категории;
 SELECT l.title,l.start_price,l.image_url,c.name
 FROM lots l
 JOIN categories c ON c.id = l.category_id
-WHERE l.winner_id IS NULL;
+WHERE l.winner_id IS NULL
+ORDER BY l.date_add;
 
 #показать лот по его id. Получите также название категории, к которой принадлежит лот
-select l.title,c.name from lots l
-JOIN categories c ON c.id = l.category_id where l.id=3
+SELECT l.title,c.name FROM lots l
+JOIN categories c ON c.id = l.category_id WHERE l.id=3
 
 #обновить название лота по его идентификатору;
 UPDATE `lots` SET `title`='New title' WHERE  `id`=1;
 
 #получить список самых свежих ставок для лота по его идентификатору;
-SELECT * FROM BIDS
-WHERE LOT_ID = 1
-ORDER BY BIDS.START_DATE LIMIT 2
+SELECT * FROM bids
+WHERE lot_id = 1
+ORDER BY bids.start_date
