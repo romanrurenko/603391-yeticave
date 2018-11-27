@@ -4,6 +4,7 @@ $user_name = 'Test user';
 $page_title = 'YetiCave - Главная страница';
 $user_avatar = 'img/user.jpg';
 $categories = ['Доски и лыжи', 'Крепления', 'Ботинки', 'Одежда', 'Инструменты', 'Разное'];
+
 $ads = [
     [
         'title' => '2014 Rossignol District Snowboard',
