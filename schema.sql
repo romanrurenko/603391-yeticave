@@ -16,24 +16,25 @@ CREATE TABLE IF NOT EXISTS `bids` (
 CREATE TABLE IF NOT EXISTS `categories` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` char(255) NOT NULL,
+  `style_name` char(255) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
   ) ENGINE=InnoDB;
 
-CREATE TABLE IF NOT EXISTS `lots` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `date_add` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `title` char(255) NOT NULL,
-  `description` text NOT NULL,
-  `image_url` varchar(100) NOT NULL,
-  `start_price` int(11) unsigned NOT NULL,
-  `date_end` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `bit_step` int(11) unsigned NOT NULL,
-  `owner_id` int(11) unsigned NOT NULL,
-  `winner_id` int(11) unsigned DEFAULT NULL,
-  `category_id` int(11) unsigned NOT NULL,
-  PRIMARY KEY (`id`)
-  ) ENGINE=InnoDB;
+  CREATE TABLE IF NOT EXISTS `lots` (
+    `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+    `date_add` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `title` char(255) NOT NULL,
+    `description` text NOT NULL,
+    `image_url` varchar(100) NOT NULL,
+    `start_price` int(11) unsigned NOT NULL,
+    `date_end` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `bit_step` int(11) unsigned NOT NULL,
+    `owner_id` int(11) unsigned NOT NULL,
+    `winner_id` int(11) unsigned DEFAULT NULL,
+    `category_id` int(11) unsigned NOT NULL,
+    PRIMARY KEY (`id`)
+    ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
