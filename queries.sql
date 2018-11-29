@@ -1,12 +1,12 @@
 USE 'yeticave';
 
 INSERT INTO `categories` (`id`, `name`) VALUES
-(4, 'Ботинки'),
-(1, 'Доски и лыжи'),
-(6, 'Инструменты'),
-(3, 'Крепления'),
-(5, 'Одежда'),
-(7, 'Разное');
+(1, 'Доски и лыжи', 'boards'),
+(2, 'Крепления', 'attachment'),
+(3, 'Ботинки', 'boots'),
+(4, 'Одежда', 'clothing'),
+(5, 'Инструменты', 'tools'),
+(6, 'Разное', 'other');
 
 INSERT INTO `users` (`id`, `email`, `password`, `name`, `avatar_url`, `contacts`, `date_add`) VALUES
 (1, 'one@mail.ru', '12345', 'ivanov', 'avatar1.jpg', 'г. Новосибирск, ул. Ленина, 1', '2018-11-16 21:26:26'),
