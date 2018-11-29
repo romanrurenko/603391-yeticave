@@ -30,11 +30,17 @@ function esc($str)
     return $text;
 }
 
-function get_time_until_midnight()
+function get_time_until_date_end($date_end)
 {
-    $next_day = strtotime('tomorrow');
+    $next_day = strtotime($date_end);
     $diff = $next_day - time();
-    $hours = floor($diff / 3600);
-    $minutes = floor(($diff % 3600) / 60);
-    return  $hours . ':' . $minutes;
+    $days = floor($diff / 3600) / 24;
+    $hours = floor(($diff % 3600) / 60);
+    $minutes = floor($diff % 60);
+    if ($days>0) {
+        return sprintf("%02d",$days) . ' дн.';
+    } else {
+        return sprintf("%02d:%02d",$hours, $minutes);
+    }
+
 }
