@@ -17,7 +17,6 @@
         <h2>Открытые лоты</h2>
     </div>
     <ul class="lots__list">
-        <!--список из массива с товарами-->
         <?php
         foreach ($ads as $key => $lot): ?>
 
@@ -28,7 +27,7 @@
                 <div class="lot__info">
                     <span class="lot__category"><?= $lot['category'] ?></span>
                     <h3 class="lot__title">
-                        <a class="text-link" href="#"><?= esc($lot['title']) ?></a>
+                        <a class="text-link" href="lot.php?id=<?= esc($lot['id']) ?>"><?= esc($lot['title']) ?></a>
                     </h3>
                     <div class="lot__state">
                         <div class="lot__rate">
