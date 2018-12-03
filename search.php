@@ -4,7 +4,7 @@ require_once('data.php');
 require_once('functions.php');
 require_once('config.php');
 
-$search = trim($_GET['search']) ?? '';
+$search = trim($_GET['search'] ?? '');
 
 if ($search) {
 
