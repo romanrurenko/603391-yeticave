@@ -13,7 +13,7 @@ INSERT INTO `users` (`id`, `email`, `password`, `name`, `avatar_url`, `contacts`
 (2, 'two@mail.ru', '54321', 'prtrov', 'avatar2.jpg', 'г.Москва, ул. Чкалова, 2', '2018-11-26 21:28:46'),
 (3, 'third@mail.ru', '121212', 'sidorov', 'avatar3.png', 'г. Яровое, ул. 40-лет Октабря, 10', '2018-11-21 23:23:49');
 
-INSERT INTO `lots` (`id`, `date_add`, `title`, `description`, `image_url`, `start_price`, `date_end`, `bit_step`, `owner_id`, `winner_id`, `category_id`) VALUES
+INSERT INTO `lots` (`id`, `date_add`, `title`, `description`, `image_url`, `start_price`, `date_end`, `bid_step`, `owner_id`, `winner_id`, `category_id`) VALUES
 (1, '2018-11-26 22:32:07', '2014 Rossignol District Snowboard', 'Крутой сноуборд. Отечественный.', 'img/lot-1.jpg', 10999, '2018-12-26 22:32:15', 10, 1, NULL, 1),
 (2, '2018-11-21 22:47:08', 'DC Ply Mens 2016/2017 Snowboard', 'Современный сноуборд.', 'img/lot-2.jpg', 159999, '2018-12-26 22:27:16', 150, 2, NULL, 2),
 (3, '2018-11-22 22:47:08', 'Крепления Union Contact Pro 2015 года размер L/XL', 'В отличном состоянии.', 'img/lot-3.jpg', 8000, '2018-12-26 22:27:16', 20, 1, NULL, 3),

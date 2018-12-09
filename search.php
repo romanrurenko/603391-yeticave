@@ -10,7 +10,7 @@ if ($search) {
 
     if (!$link) {
         $error = mysqli_connect_error();
-        $main_content = include_template('error.php', ['error' => $error]);
+        show_error($content, $error);
 
     } else {
 
@@ -20,7 +20,8 @@ if ($search) {
         if ($result) {
             $categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
         } else {
-            $main_content = select_error($link);
+            $error = mysqli_error($link);
+            show_error($content, $error);
         };
 
         // экранирование данных в запросе
@@ -36,25 +37,26 @@ if ($search) {
         if ($result) {
             $ads = mysqli_fetch_all($result, MYSQLI_ASSOC);
         } else {
-            $main_content = select_error($link);
+            $error = mysqli_error($link);
+            show_error($content, $error);
         }
     };
 };
-if (!$main_content) {
+if (!$content) {
     if (count($ads)) {
-        $main_content = include_template('search.php', [
+        $content = include_template('search.php', [
             'ads' => $ads,
             'categories' => $categories
         ]);
 
     } else {
-        $main_content = '<p>По вашему запросу ничего не найдено</p>';
+        $content = '<p>По вашему запросу ничего не найдено</p>';
     }
 };
 
 $layout_content = include_template('layout.php', [
-    'page_title' => $page_title,
-    'content' => $main_content,
+    'page_title' => 'Yeticave - Поиск лотов',
+    'content' => $content,
     'categories' => $categories,
     'user_name' => $user_name,
     'is_auth' => $is_auth

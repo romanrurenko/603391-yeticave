@@ -7,7 +7,7 @@ require_once('config.php');
 
 if (!$link) {
     $error = mysqli_connect_error();
-    $main_content = include_template('error.php', ['error' => $error]);
+    show_error($content, $error);
 
 } else {
 
@@ -17,7 +17,8 @@ if (!$link) {
     if ($result) {
         $categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
     } else {
-        $main_content = select_error($link);
+        $error = mysqli_error($link);
+        show_error($content, $error);
     };
 };
 
@@ -35,27 +36,27 @@ if ($id > 0) {
     if ($result) {
         $lot = mysqli_fetch_all($result, MYSQLI_ASSOC);
     } else {
-        $main_content = select_error($link);
+        $content = select_error($link);
     };
 };
 
-if (!$main_content) {
+if (!$content) {
     if (count($lot)) {
 
-        $main_content = include_template('lot.php', [
+        $content = include_template('lot.php', [
             'lot' => $lot[0],
             'categories' => $categories
         ]);
 
     } else {
         http_response_code(404);
-        $main_content = include_template('404.php', ['categories' => $categories]);
+        $content = include_template('404.php', ['categories' => $categories]);
     }
 };
 
 $layout_content = include_template('layout.php', [
     'page_title' => $page_title,
-    'content' => $main_content,
+    'content' => $content,
     'categories' => $categories,
     'user_name' => $user_name,
     'is_auth' => $is_auth
