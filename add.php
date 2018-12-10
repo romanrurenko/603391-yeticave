@@ -28,16 +28,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['lot'])) {
         'start_price' => 'Начальная цена', 'bid_step' => 'Шаг ставки', 'category' => 'Категория',
         'date_end' => 'Дата окончания торгов'];
     $errors = [];
+
     foreach ($required as $key) {
-        if ($lot[$key] === '' && isset($lot[$key])) {
-            $errors[$key] = 'Это поле надо заполнить';
+        if (isset($lot[$key])) {
+            if (empty($lot[$key])) {
+                $errors[$key] = 'Это поле надо заполнить';
+            }
+        } else {
+            $errors[$key] = 'Это поле отсутствует';
         }
+
     }
 
-    if ($lot['category'] === '0') {
+    if ($lot['category'] === 0) {
         $errors['category'] = 'Не выбрана категория';
-    };
-
+    }
 
     // проверяем изображение
     if (isset($_FILES['lot-image']['name']) && ($_FILES['lot-image']['tmp_name'] !== '')) {
@@ -53,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['lot'])) {
                 $lot['path'] = $file_path . $file_name;
             } else {
                 $errors['path'] = 'Ошибка загрузки файла';
-            };
+            }
 
         }
     } else {
