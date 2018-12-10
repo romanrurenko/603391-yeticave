@@ -18,7 +18,7 @@ INSERT INTO `lots` (`id`, `date_add`, `title`, `description`, `image_url`, `star
 (2, '2018-11-21 22:47:08', 'DC Ply Mens 2016/2017 Snowboard', 'Современный сноуборд.', 'img/lot-2.jpg', 159999, '2018-12-26 22:27:16', 150, 2, NULL, 2),
 (3, '2018-11-22 22:47:08', 'Крепления Union Contact Pro 2015 года размер L/XL', 'В отличном состоянии.', 'img/lot-3.jpg', 8000, '2018-12-26 22:27:16', 20, 1, NULL, 3),
 (4, '2018-11-23 22:47:08', 'Ботинки для сноуборда DC Mutiny Charocal', 'Редкие.', 'img/lot-4.jpg', 10999, '2018-11-24 22:27:16', 25, 1, 2, 4),
-  (5, '2018-11-24 22:47:08', 'Куртка для сноуборда DC Mutiny Charocal', 'Куртка замшевая.', 'img/lot-5.jpg', 7500, '2018-11-26 22:27:16', 50, 2, 1, 5),
+(5, '2018-11-24 22:47:08', 'Куртка для сноуборда DC Mutiny Charocal', 'Куртка замшевая.', 'img/lot-5.jpg', 7500, '2018-11-26 22:27:16', 50, 2, 1, 5),
 (6, '2018-11-24 22:47:08', 'Маска Oakley Canopy', 'Хит сезона.', 'img/lot-6.jpg', 5400, '2018-12-26 22:27:16', 20, 1, NULL, 6),
 (7, '2018-11-28 22:47:08', 'Ботинки Henry Snow', 'Спецзаказ.', 'img/lot-4.jpg', 49999, '2018-11-29 23:16:42', 40, 1, NULL, 3);
 
@@ -35,7 +35,7 @@ SELECT NAME FROM categories ORDER BY id;
 #получить самые новые, открытые лоты. Каждый лот должен включать название, стартовую цену, ссылку на изображение, цену, название категории;
 SELECT l.title,l.start_price,l.image_url,c.name
 FROM lots l
-       JOIN categories c ON c.id = l.category_id
+JOIN categories c ON c.id = l.category_id
 WHERE l.winner_id IS NULL
 ORDER BY l.date_add;
 

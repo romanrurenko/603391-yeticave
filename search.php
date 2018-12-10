@@ -14,7 +14,7 @@ if ($search) {
 
     } else {
 
-        $sql = "SELECT `id`, `name`, `style_name` FROM categories ORDER BY `id`";
+        $sql = 'SELECT `id`, `name`, `style_name` FROM categories ORDER BY `id`';
         $result = mysqli_query($link, $sql);
 
         if ($result) {
@@ -22,14 +22,14 @@ if ($search) {
         } else {
             $error = mysqli_error($link);
             show_error($content, $error);
-        };
+        }
 
         // экранирование данных в запросе
         $search = mysqli_real_escape_string($link, $search);
-        $sql = "SELECT l.title,l.start_price,l.image_url,l.description,date_end,c.name AS category FROM lots l " .
-            "JOIN categories c ON c.id = l.category_id " .
-            "WHERE MATCH (title,description) AGAINST ('$search') " .
-            "ORDER BY l.date_add DESC";
+        $sql = 'SELECT l.title,l.start_price,l.image_url,l.description,date_end,c.name AS category FROM lots l ' .
+            'JOIN categories c ON c.id = l.category_id ' .
+            'WHERE MATCH (title,description) AGAINST ("' . $search . '") ' .
+            'ORDER BY l.date_add DESC';
 
 
         $result = mysqli_query($link, $sql);
@@ -40,8 +40,9 @@ if ($search) {
             $error = mysqli_error($link);
             show_error($content, $error);
         }
-    };
-};
+    }
+}
+
 if (!$content) {
     if (count($ads)) {
         $content = include_template('search.php', [

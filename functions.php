@@ -1,4 +1,5 @@
 <?php
+
 function include_template($name, $data)
 {
     $name = 'templates/' . $name;
@@ -37,11 +38,11 @@ function get_time_until_date_end($date_end)
     if ($diff < 0) {
         $result = 'закрыт';
     } else {
-        $days = floor($diff / 3600) / 24;
+        $days = floor(($diff / 3600) / 24);
         $hours = floor(($diff % 3600) / 60);
         $minutes = floor($diff % 60);
-        $result = ($days >= 1) ? sprintf("%02d", $days) . ' дн.' : sprintf("%02d:%02d", $hours, $minutes);
-    };
+        $result = ($days >= 1) ? sprintf('%02d', $days) . ' дн.' : sprintf('%02d:%02d', $hours, $minutes);
+    }
 
     return $result;
 }

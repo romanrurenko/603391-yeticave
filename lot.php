@@ -11,7 +11,7 @@ if (!$link) {
 
 } else {
 
-    $sql = "SELECT `id`, `name`, `style_name` FROM categories ORDER BY `id`";
+    $sql = 'SELECT `id`, `name`, `style_name` FROM categories ORDER BY `id`';
     $result = mysqli_query($link, $sql);
 
     if ($result) {
@@ -19,8 +19,8 @@ if (!$link) {
     } else {
         $error = mysqli_error($link);
         show_error($content, $error);
-    };
-};
+    }
+}
 
 // проверка наличия параметра id в запросе
 $id = (int)($_GET['id'] ?? 0);
@@ -28,17 +28,18 @@ $id = (int)($_GET['id'] ?? 0);
 if ($id > 0) {
 
     $search = mysqli_real_escape_string($link, $search);
-    $sql = "SELECT l.id, l.title,l.start_price,l.image_url,l.description,date_end,c.name AS category FROM lots l " .
-        "JOIN categories c ON c.id = l.category_id " .
-        "WHERE l.id=" . $id;
+    $sql = 'SELECT l.id, l.title,l.start_price,l.image_url,l.description,date_end,c.name AS category FROM lots l ' .
+        'JOIN categories c ON c.id = l.category_id ' .
+        'WHERE l.id=' . $id;
     $result = mysqli_query($link, $sql);
 
     if ($result) {
         $lot = mysqli_fetch_all($result, MYSQLI_ASSOC);
     } else {
-        $content = select_error($link);
-    };
-};
+        $error = mysqli_error($link);
+        show_error($content, $error);
+    }
+}
 
 if (!$content) {
     if (count($lot)) {
@@ -52,7 +53,7 @@ if (!$content) {
         http_response_code(404);
         $content = include_template('404.php', ['categories' => $categories]);
     }
-};
+}
 
 $layout_content = include_template('layout.php', [
     'page_title' => $page_title,
