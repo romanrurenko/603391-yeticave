@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `lots` (
   `image_url` varchar(100) NOT NULL,
   `start_price` int(11) unsigned NOT NULL,
   `date_end` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `bit_step` int(11) unsigned NOT NULL,
+  `bid_step` int(11) unsigned NOT NULL,
   `owner_id` int(11) unsigned NOT NULL,
   `winner_id` int(11) unsigned DEFAULT NULL,
   `category_id` int(11) unsigned NOT NULL,
