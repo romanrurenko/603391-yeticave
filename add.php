@@ -54,8 +54,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['lot'])) {
         if ($file_type !== 'image/jpeg') {
             $errors['path'] = 'Загрузите картинку в формате JPG';
         } else {
-            if (move_uploaded_file($tmp_name, $file_path . $file_name)) {
-                $lot['path'] = $file_path . $file_name;
+            if (move_uploaded_file($tmp_name, $lot_image_path . $file_name)) {
+                $lot['path'] = $lot_image_path . $file_name;
             } else {
                 $errors['path'] = 'Ошибка загрузки файла';
             }
@@ -85,6 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['lot'])) {
         if ($res) {
             $lot_id = mysqli_insert_id($link);
             header('Location: lot.php?id=' . $lot_id);
+            exit();
         } else {
             $page_content = include_template('error.php', ['error' => mysqli_error($link)]);
         }
