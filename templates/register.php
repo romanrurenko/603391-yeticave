@@ -22,7 +22,7 @@
             <div class="form__item <?=$classname?>"> <!-- form__item--invalid -->
                 <label for="email">E-mail*</label>
                 <input id="email" type="text" name="signup[email]"
-                       placeholder="Введите e-mail"   value="<?=$value?>">
+                       placeholder="Введите e-mail"   value="<?=$value?>" required>
                 <span class="form__error">Введите e-mail</span>
             </div>
 
@@ -32,7 +32,7 @@
             <div class="form__item <?=$classname?>">
                 <label for="password">Пароль*</label>
                 <input id="password" type="text" name="signup[password]"
-                       placeholder="Введите пароль"   value="<?=$value?>">
+                       placeholder="Введите пароль" value="<?=$value?>" required>
                 <span class="form__error">Введите пароль</span>
             </div>
 
@@ -41,7 +41,8 @@
 
             <div class="form__item <?=$classname?>">
                 <label for="name">Имя*</label>
-                <input id="name" type="text" name="signup[name]" placeholder="Введите имя"    value="<?=$value?>">
+                <input id="name" type="text" name="signup[name]" placeholder="Введите имя"
+                       value="<?=$value?>" required>
                 <span class="form__error">Введите имя</span>
             </div>
 
@@ -51,7 +52,7 @@
             <div class="form__item <?=$classname?>">
                 <label for="message">Контактные данные*</label>
                 <textarea id="message" name="signup[contacts]"
-                          placeholder="Напишите как с вами связаться"  ><?=$value?></textarea>
+                          placeholder="Напишите как с вами связаться" required><?=$value?></textarea>
                 <span class="form__error">Напишите как с вами связаться</span>
             </div>
 
@@ -66,7 +67,7 @@
                     </div>
                 </div>
                 <div class="form__input-file">
-                        <input class="visually-hidden" type="file" name="file" id="photo2" value="">
+                        <input class="visually-hidden" type="file" name="file" id="photo2" value="" required>
                     <label for="photo2">
                         <span>+ Добавить</span>
                     </label>

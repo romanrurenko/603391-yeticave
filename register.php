@@ -73,8 +73,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['signup'])) {
                 $errors[] = 'Пользователь с этим email уже зарегистрирован';
             } else {
                 $password = password_hash($form['password'], PASSWORD_DEFAULT);
-                $sql = 'INSERT INTO users (date_add, email, name, password, contacts) VALUES (NOW(),?, ?, ?, ?)';
-                $stmt = db_get_prepare_stmt($link, $sql, [$form['email'], $form['name'], $password , $form['contacts']]);
+                $sql = 'INSERT INTO users (date_add, email, name, password, contacts, avatar_url)
+                        VALUES (NOW(),?, ?, ?, ?, ?)';
+                $stmt = db_get_prepare_stmt($link, $sql, [$form['email'], $form['name'],
+                    $password , $form['contacts'], $form['path']]);
                 $res = mysqli_stmt_execute($stmt);
 
             if ($res && empty($errors)) {

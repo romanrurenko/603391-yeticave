@@ -35,7 +35,7 @@
                             <a href="register.php">Регистрация</a>
                         </li>
                         <li class="user-menu__item">
-                            <a href="#">Вход</a>
+                            <a href="enter.php">Вход</a>
                         </li>
                     </ul>
                 <?php endif; ?>
