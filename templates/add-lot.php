@@ -88,14 +88,17 @@
           <span class="form__error">Введите дату завершения торгов</span>
         </div>
       </div>
-      <span class="form__error form__error--bottom">Пожалуйста, исправьте ошибки в форме.</span>
-    <ul>
+
         <?php
         if (count($errors)) {
-            foreach ($errors as $err => $val): ?>
+                  ?>
+        <span class="form__error form__error--bottom">Пожалуйста, исправьте ошибки в форме.</span>
+            <ul>
+            <?php foreach ($errors as $err => $val): ?>
                 <li><strong><?= $dict[$err] ?? ''; ?>:</strong> <?= $val; ?></li>
-            <?php endforeach;
-        }?>
-    </ul>
+            <?php endforeach;?>
+            </ul>
+        <?php } ?>
+
       <button type="submit" class="button">Добавить лот</button>
     </form>
