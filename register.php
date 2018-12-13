@@ -80,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['signup'])) {
                 $res = mysqli_stmt_execute($stmt);
 
             if ($res && empty($errors)) {
-                header("Location: /enter.php");
+                header("Location: /login.php");
                 exit();
             } else {
                 $page_content = include_template('error.php', ['error' => mysqli_error($link)]);
@@ -114,8 +114,6 @@ $layout_content = include_template('layout.php', [
     'page_title' => 'Yeticave - Регистрация пользователя',
     'content' => $main_content,
     'categories' => $categories,
-    'user_name' => $user_name,
-    'is_auth' => $is_auth
 ]);
 
 print($layout_content);
