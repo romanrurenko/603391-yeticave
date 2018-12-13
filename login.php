@@ -19,9 +19,7 @@ if (!$link) {
     }
 }
 
-
 session_start();
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
     $form = $_POST['login'];
     $errors = [];
@@ -54,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
     }
 
     if (count($errors)) {
-        $page_content = include_template('enter.php', ['form' => $form, 'errors' => $errors]);
+        $page_content = include_template('login.php', ['form' => $form, 'errors' => $errors]);
     }
     else {
         header('Location: /index.php');
@@ -62,19 +60,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
     }
 }
 else {
-    if (isset($_SESSION['user'])) {
-        $page_content = include_template('index.php', ['username' => $_SESSION['user']['name']]);
-
-    }
-    else {
-        $page_content = include_template('enter.php', []);
-    }
+    $page_content = isset($_SESSION['user']) ? include_template('index.php',
+        ['username' => $_SESSION['user']['name']]) : include_template('login.php', []);
 }
 
 
 
 if (!$main_content) {
-    $main_content = include_template('enter.php', [
+    $main_content = include_template('login.php', [
         'form' => $form,
         'errors' => $errors,
         'dict' => $dict,
@@ -86,8 +79,6 @@ $layout_content = include_template('layout.php', [
     'page_title' => 'Yeticave - Регистрация пользователя',
     'content' => $main_content,
     'categories' => $categories,
-    'user_name' => $user_name,
-    'is_auth' => $is_auth
 ]);
 
 print($layout_content);

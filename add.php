@@ -3,6 +3,11 @@ require_once('data.php');
 require_once('functions.php');
 require_once('config.php');
 
+
+
+
+
+
 // загружаем категории
 if (!$link) {
     $db_error = mysqli_connect_error();
@@ -19,8 +24,11 @@ if (!$link) {
     }
 }
 
-// есть ли запрос
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['lot'])) {
+session_start();
+if (!$_SESSION['user']) {
+    http_response_code(403);
+    $page_content = include_template('403.php', ['categories' => $categories]);
+} else if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['lot'])) {
     $lot = $_POST['lot'];
     $required = ['title', 'description', 'start_price', 'bid_step',
         'category', 'date_end'];
