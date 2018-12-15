@@ -31,10 +31,10 @@ function esc($str)
     return $text;
 }
 
-function get_time_until_date_end($date_end)
+function get_time_until_date_end($date_start, $date_end)
 {
     $next_day = strtotime($date_end);
-    $diff = $next_day - time();
+    $diff = $next_day - $date_start;
     if ($diff < 0) {
         $result = 'закрыт';
     } else {
@@ -46,6 +46,29 @@ function get_time_until_date_end($date_end)
 
     return $result;
 }
+
+    function get_time_after_date($date_start, $date_end)
+{
+    $diff = $date_end - strtotime($date_start);
+
+
+    if ($diff<(3600*24)) {
+
+        $hours = floor($diff / 3600) ;
+        $minutes = floor(($diff / 60) % 3600);
+
+        $result =  ($diff > 3600) ? sprintf('%2d', $hours) . ' час. назад' :  sprintf('%2d', $minutes) . ' мин. назад';
+
+    } else {
+
+        $result = date("d-m-Y в H:i:s", strtotime($date_start));
+    }
+
+    return $result;
+}
+
+
+
 
 function show_error(&$content, $error) {
     $content = include_template('error.php', ['error' => $error]);
@@ -89,3 +112,4 @@ $stmt = mysqli_prepare($link, $sql);
 
     return $stmt;
 }
+

@@ -28,7 +28,7 @@ if ($search) {
         $search = mysqli_real_escape_string($link, $search);
         $sql = 'SELECT l.title,l.start_price,l.image_url,l.description,date_end,c.name AS category FROM lots l ' .
             'JOIN categories c ON c.id = l.category_id ' .
-            'WHERE MATCH (title,description) AGAINST ("' . $search . '") ' .
+            'WHERE MATCH (title,description) AGAINST ("' . $search . '" IN BOOLEAN MODE) ' .
             'ORDER BY l.date_add DESC';
 
 

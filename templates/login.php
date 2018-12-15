@@ -24,7 +24,7 @@
         $value =  $errors['password'] ?? 'Введите пароль'; ?>
       <div class="form__item form__item--last <?=$classname?>">
         <label for="password">Пароль*</label>
-        <input id="password" type="text" name="login[password]" placeholder="Введите пароль"  value="">
+        <input id="password" type="password" name="login[password]" placeholder="Введите пароль"  value="">
         <span class="form__error"><?=$value?></span>
       </div>
       <button type="submit" class="button">Войти</button>

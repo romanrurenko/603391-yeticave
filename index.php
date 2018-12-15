@@ -36,7 +36,7 @@ ORDER BY l.date_add DESC';
     }
 }
 
-if (!$main_content) {
+if (!isset($main_content)) {
     $main_content = include_template('index.php', [
         'ads' => $ads,
         'categories' => $categories
