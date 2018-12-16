@@ -1,52 +1,61 @@
 <?php
-require_once('data.php');
 require_once('functions.php');
-require_once('config.php');
+require_once('config/config.php');
+require_once('Database.php');
+require_once('winner.php');
 
 session_start();
-if (!$link) {
-    $error = mysqli_connect_error();
-    $main_content = include_template('error.php', ['error' => $error]);
 
+$dbHelper = new Database(...$db_cfg);
+
+if ($dbHelper->getLastError()) {
+    show_error( $content, $dbHelper->getLastError() );
 } else {
-    $sql = 'SELECT id, name, style_name FROM categories ORDER BY id';
-    $result = mysqli_query($link, $sql);
 
-    if ($result) {
-        $categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    $dbHelper->executeQuery( 'SELECT id, name, style_name FROM categories ORDER BY id' );
+
+    if (!$dbHelper->getLastError()) {
+        $categories = $dbHelper->getResultAsArray();
     } else {
-        $error = mysqli_error($link);
-        show_error($main_content, $error);
+        show_error( $content, $dbHelper->getLastError() );
     }
 
+    $cur_page = $_GET['page'] ?? 1;
+    $page_items_count = 6;
+
+    $dbHelper->executeQuery( "SELECT COUNT(*) as cnt FROM lots" );
+    $total_items_count = $dbHelper->getResultAsArray()[0]['cnt'];
+    $pages_count = ceil( $total_items_count / $page_items_count );
+    $offset = ($cur_page - 1) * $page_items_count;
 
     $sql = 'SELECT l.id, l.title,l.start_price,l.image_url,date_end,c.name AS category
-FROM lots l
-JOIN categories c ON c.id = l.category_id
-WHERE l.winner_id IS NULL AND date_end > now()
-ORDER BY l.date_add DESC';
-    $search = mysqli_real_escape_string($link, $sql);
-    $result = mysqli_query($link, $sql);
+            FROM lots l
+            JOIN categories c ON c.id = l.category_id
+            WHERE l.winner_id IS NULL AND date_end > NOW()
+            ORDER BY l.date_add DESC  LIMIT ? OFFSET ?';
 
-    if ($result) {
-        $ads = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    $dbHelper->executeQuery( $sql, [$page_items_count, $offset] );
+
+    if (!$dbHelper->getLastError()) {
+        $ads = $dbHelper->getResultAsArray();
+        $main_content = include_template( 'index.php', [
+            'ads' => $ads,
+            'categories' => $categories,
+            'pages' => range( 1, $pages_count ),
+            'pages_count' => $pages_count,
+            'cur_page' => $cur_page
+        ]);
+
+        $content = include_template( 'main.php', $main_content );
     } else {
-        $error = mysqli_error($link);
-        show_error($main_content, $error);
+        show_error( $content, $dbHelper->getLastError() );
     }
 }
 
-if (!isset($main_content)) {
-    $main_content = include_template('index.php', [
-        'ads' => $ads,
-        'categories' => $categories
-    ]);
-}
+    $layout_content = include_template( 'layout.php', [
+        'page_title' => 'Yeticave - Главная страница',
+        'content' => $main_content ?? '',
+        'categories' => $categories ?? null,
+    ] );
 
-$layout_content = include_template('layout.php', [
-    'page_title' => $page_title,
-    'content' => $main_content,
-    'categories' => $categories,
-]);
-
-print($layout_content);
+    print($layout_content);

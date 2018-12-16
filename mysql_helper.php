@@ -9,8 +9,9 @@
  *
  * @return mysqli_stmt Подготовленное выражение
  */
-function db_get_prepare_stmt($link, $sql, $data = []) {
-    $stmt = mysqli_prepare($link, $sql);
+function db_get_prepare_stmt($link, $sql, $data = [])
+{
+    $stmt = mysqli_prepare( $link, $sql );
 
     if ($data) {
         $types = '';
@@ -19,13 +20,11 @@ function db_get_prepare_stmt($link, $sql, $data = []) {
         foreach ($data as $value) {
             $type = null;
 
-            if (is_int($value)) {
+            if (is_int( $value )) {
                 $type = 'i';
-            }
-            else if (is_string($value)) {
+            } else if (is_string( $value )) {
                 $type = 's';
-            }
-            else if (is_double($value)) {
+            } else if (is_double( $value )) {
                 $type = 'd';
             }
 
@@ -35,10 +34,10 @@ function db_get_prepare_stmt($link, $sql, $data = []) {
             }
         }
 
-        $values = array_merge([$stmt, $types], $stmt_data);
+        $values = array_merge( [$stmt, $types], $stmt_data );
 
         $func = 'mysqli_stmt_bind_param';
-        $func(...$values);
+        $func( ...$values );
     }
 
     return $stmt;

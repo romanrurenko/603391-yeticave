@@ -2,7 +2,7 @@
 <html lang="ru" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
-    <title><?=$page_title?></title>
+    <title><?= $page_title ?></title>
     <link href="css/normalize.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 </head>
@@ -12,25 +12,25 @@
     <header class="main-header">
         <div class="main-header__container container">
             <h1 class="visually-hidden">YetiCave</h1>
-            <a class="main-header__logo" href="http://yeticave.local">
+            <a class="main-header__logo" href="/">
                 <img src="img/logo.svg" width="160" height="39" alt="Логотип компании YetiCave">
             </a>
             <form class="main-header__search" method="get" action="search.php">
                 <input type="search" name="search" placeholder="Поиск лота">
                 <input class="main-header__search-btn" type="submit" name="find" value="Найти">
             </form>
-            <?php if (isset($_SESSION['user'])): ?>
+            <?php if (isset( $_SESSION['user'] )): ?>
                 <a class="main-header__add-lot button" href="add.php">Добавить лот</a>
             <?php endif ?>
             <nav class="user-menu">
                 <?php
-                if (isset($_SESSION['user'])): ?>
+                if (isset( $_SESSION['user'] )): ?>
                     <div class="user-menu__image">
-                        <?php $avatar_url= $_SESSION['user']['avatar_url'] ?? 'img/user.jpg';?>
-                        <img src="<?=$avatar_url?>" width="40" height="40" alt="Пользователь">
+                        <?php $avatar_url = $_SESSION['user']['avatar_url'] ?? 'img/user.jpg'; ?>
+                        <img src="<?= $avatar_url ?>" width="40" height="40" alt="Пользователь">
                     </div>
                     <div class="user-menu__logged">
-                        <p><?= esc($_SESSION['user']['name'])?></p>
+                        <p><?= esc( $_SESSION['user']['name'] ) ?></p>
                         <span>
                             <a href="logout.php">Выход</a>
                         </span>
@@ -50,7 +50,7 @@
     </header>
 
     <main class="container">
-        <?=$content?>
+        <?= $content ?>
     </main>
 </div>
 
@@ -109,9 +109,9 @@
                 </svg>
             </a>
         </div>
-        <?php if (isset($_SESSION['user'])): ?>
-        <a class="main-footer__add-lot button" href="add-lot.html">Добавить лот</a>
-        <?php endif;?>
+        <?php if (isset( $_SESSION['user'] )): ?>
+            <a class="main-footer__add-lot button" href="add-lot.html">Добавить лот</a>
+        <?php endif; ?>
         <div class="main-footer__developed-by">
             <span class="visually-hidden">Разработано:</span>
             <a class="logo-academy" href="https://htmlacademy.ru/intensive/php">

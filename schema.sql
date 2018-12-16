@@ -1,6 +1,7 @@
 CREATE DATABASE IF NOT EXISTS `yeticave`
 default character set utf8
 default collate utf8_general_ci;
+SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));
 
 USE `yeticave`;
 
