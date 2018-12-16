@@ -1,12 +1,12 @@
 <section class="lot-item container">
-    <h2><?= $lot['title'] ?></h2>
+    <h2><?= esc($lot['title']) ?></h2>
     <div class="lot-item__content">
         <div class="lot-item__left">
             <div class="lot-item__image">
                 <img src="<?= $lot['image_url'] ?>" width="730" height="548" alt="Сноуборд">
             </div>
             <p class="lot-item__category">Категория: <span><?= $lot['category'] ?></span></p>
-            <p class="lot-item__description"><?= $lot['description'] ?></p>
+            <p class="lot-item__description"><?= esc($lot['description']) ?></p>
         </div>
         <?php if (isset( $_SESSION['user'] )): ?>
         <div class="lot-item__right">
@@ -20,22 +20,22 @@
                         $value = $current_bid ?? '' ?>
 
                         <span class="lot-item__amount">Текущая цена</span>
-                        <span class="lot-item__cost"><?= $value ?></span>
+                        <span class="lot-item__cost"><?= esc($value) ?></span>
                     </div>
                     <div class="lot-item__min-cost">
-                        Мин. ставка <span><?= $min_cost ?> р</span>
+                        Мин. ставка <span><?= esc($min_cost) ?> р</span>
                     </div>
                 </div>
                 <form class="lot-item__form" action="lot.php" method="post">
                     <p class="lot-item__form-item form__item form__item--invalid">
                         <label for="cost">Ваша ставка</label>
                         <?php $value = $cost ?? ''; ?>
-                        <input id="cost" type="text" name="cost" placeholder="<?= $min_cost ?>" value="<?= $value ?>">
+                        <input id="cost" type="text" name="cost" placeholder="<?= $min_cost ?>" value="<?= esc($value) ?>">
                         <?php $value = $bid_errors['cost'] ?? '' ?>
-                        <span class="form__error"><?= $value ?></span>
+                        <span class="form__error"><?= esc($value) ?></span>
                     </p>
                     <?php $value = $lot['id'] ?? '' ?>
-                    <input class="visually-hidden" type="number" name="lot_id" value="<?= $value ?>">
+                    <input class="visually-hidden" type="number" name="lot_id" value="<?= esc($value) ?>">
                     <button type="submit" class="button">Сделать ставку</button>
                 </form>
             </div>
@@ -55,13 +55,13 @@
                             ?>
                             <tr class="history__item">
                                 <td class="history__name">
-                                    <?= $user_name ?>
+                                    <?= esc($user_name) ?>
                                 </td>
                                 <td class="history__price">
-                                    <?= $bid_amount ?>&nbsp;р
+                                    <?= esc($bid_amount) ?>&nbsp;р
                                 </td>
                                 <td class="history__time">
-                                    <?= $time_after_bid ?>
+                                    <?= esc($time_after_bid) ?>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

@@ -54,8 +54,8 @@ if (!$_SESSION['user']) {
         $file_info = finfo_open( FILEINFO_MIME_TYPE );
         $file_type = finfo_file( $file_info, $tmp_name );
 
-        if ($file_type !== 'image/jpeg') {
-            $errors['path'] = 'Загрузите картинку в формате JPG';
+        if ($file_type !== 'image/jpeg' && $file_type !== 'image/png') {
+            $errors['path'] = 'Загрузите картинку в формате JPG или PNG';
         } else {
             if (move_uploaded_file( $tmp_name, $lot_image_path . $file_name )) {
                 $lot['path'] = $lot_image_path . $file_name;
@@ -66,6 +66,12 @@ if (!$_SESSION['user']) {
         }
     } else {
         $errors['path'] = 'Вы не загрузили файл';
+    }
+
+    $is_valid_date = isValidTimeStamp(strtotime($lot['date_end']));
+
+    if (!$is_valid_date) {
+        $errors['date_end'] = 'Некорректная дата';
     }
 
     // если есть ошибки

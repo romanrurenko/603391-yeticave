@@ -52,7 +52,7 @@
     <div class="form__item <?= $classname ?>">
         <label for="message">Контактные данные*</label>
         <textarea id="message" name="signup[contacts]"
-                  placeholder="Напишите как с вами связаться" required><?= $value ?></textarea>
+                  placeholder="Напишите как с вами связаться" required><?= esc($value) ?></textarea>
         <span class="form__error">Напишите как с вами связаться</span>
     </div>
 
@@ -81,7 +81,7 @@
         <span class="form__error form__error--bottom">Пожалуйста, исправьте ошибки в форме.</span>
         <ul>
             <?php foreach ($errors as $error => $value): ?>
-                <li><strong><?= $dict[$error] ?? ''; ?>:</strong> <?= $value; ?></li>
+                <li><strong><?= $dict[$error] ?? ''; ?>:</strong> <?= esc($value); ?></li>
             <?php endforeach; ?>
         </ul>
     <?php } ?>

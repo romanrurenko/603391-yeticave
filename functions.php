@@ -96,3 +96,9 @@ function db_get_prepare_stmt($link, $sql, $data = [])
     return $stmt;
 }
 
+function isValidTimeStamp($timestamp)
+{
+    return ((string) (int) $timestamp === $timestamp)
+        && ($timestamp <= PHP_INT_MAX)
+        && ($timestamp >= ~PHP_INT_MAX);
+}

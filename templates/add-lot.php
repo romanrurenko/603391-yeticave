@@ -20,7 +20,7 @@
             <!-- form__item--invalid -->
             <label for="lot-name">Наименование</label>
             <input id="lot-name" type="text" name="lot[title]" placeholder="Введите наименование лота"
-                   value="<?= $value ?>" required><!--required-->
+                   value="<?= esc($value) ?>" required><!--required-->
             <span class="form__error">Введите наименование лота</span>
         </div>
         <?php $classname = isset( $errors['category'] ) ? 'form__item--invalid' : ''; ?>
@@ -43,7 +43,7 @@
     $value = $lot['description'] ?? ''; ?>
     <div class="form__item form__item--wide <?= $classname ?>">
         <label for="message">Описание</label>
-        <textarea id="message" name="lot[description]" placeholder="Напишите описание лота"><?= $value ?></textarea>
+        <textarea id="message" name="lot[description]" placeholder="Напишите описание лота"><?= esc($value) ?></textarea>
         <!--required-->
         <span class="form__error">Напишите описание лота</span>
     </div>
@@ -68,7 +68,7 @@
         $value = $lot['start_price'] ?? ''; ?>
         <div class="form__item form__item--small <?= $classname ?>">
             <label for="lot-rate">Начальная цена</label>
-            <input id="lot-rate" type="number" name="lot[start_price]" placeholder="0" value="<?= $value ?>" required>
+            <input id="lot-rate" type="number" name="lot[start_price]" placeholder="0" value="<?= esc($value) ?>" required>
             <!--required-->
             <span class="form__error">Введите начальную цену</span>
         </div>
@@ -76,7 +76,7 @@
         $value = $lot['bid_step'] ?? ''; ?>
         <div class="form__item form__item--small <?= $classname ?>">
             <label for="lot-step">Шаг ставки</label>
-            <input id="lot-step" type="number" name="lot[bid_step]" placeholder="0" value="<?= $value ?>" required>
+            <input id="lot-step" type="number" name="lot[bid_step]" placeholder="0" value="<?= esc($value) ?>" required>
             <!--required-->
             <span class="form__error">Введите шаг ставки</span>
         </div>
@@ -85,7 +85,7 @@
         <div class="form__item <?= $classname ?>">
             <label for="lot-date">Дата окончания торгов</label>
             <input class="form__input-date" id="lot-date" type="date" name="lot[date_end]"
-                   value="<?= $value ?>" required><!--required-->
+                   value="<?= esc($value) ?>" required><!--required-->
             <span class="form__error">Введите дату завершения торгов</span>
         </div>
     </div>
