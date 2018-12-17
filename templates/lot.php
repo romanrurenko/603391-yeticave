@@ -8,7 +8,7 @@
             <p class="lot-item__category">Категория: <span><?= $lot['category'] ?></span></p>
             <p class="lot-item__description"><?= esc($lot['description']) ?></p>
         </div>
-        <?php if (isset( $_SESSION['user'] ) && isset($lot['winner_id'])): ?>
+        <?php if (isset( $_SESSION['user'] ) && !isset($lot['winner_id'])): ?>
         <div class="lot-item__right">
             <div class="lot-item__state">
                 <div class="lot-item__timer timer">
@@ -26,7 +26,7 @@
                         Мин. ставка <span><?= esc($min_cost) ?> р</span>
                     </div>
                 </div>
-                <form class="lot-item__form" action="lot.php" method="post">
+                <form class="lot-item__form" action="lot.php?id=<?=$lot['id']?>" method="post">
                     <p class="lot-item__form-item form__item form__item--invalid">
                         <label for="cost">Ваша ставка</label>
                         <?php $value = $cost ?? ''; ?>
