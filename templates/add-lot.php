@@ -1,13 +1,3 @@
-<nav class="nav">
-    <ul class="nav__list container">
-        <?php
-        foreach ($categories as $value): ?>
-            <li class="nav__item">
-                <a href="pages/all-lots.html"><?= $value['name'] ?></a>
-            </li>
-        <?php endforeach; ?>
-    </ul>
-</nav>
 <?php $classname = (isset($errors) ) ? 'form--invalid' : ''; ?>
 <form class="form form--add-lot container <?= $classname ?>" action="add.php" method="post"
       enctype="multipart/form-data">
@@ -94,11 +84,6 @@
     if (isset( $errors )) {
         ?>
         <span class="form__error form__error--bottom">Пожалуйста, исправьте ошибки в форме.</span>
-        <ul>
-            <?php foreach ($errors as $err => $val): ?>
-                <li><strong><?= $dict[$err] ?? ''; ?>:</strong> <?= $val; ?></li>
-            <?php endforeach; ?>
-        </ul>
     <?php } ?>
 
     <button type="submit" class="button">Добавить лот</button>

@@ -1,7 +1,7 @@
 <?php
-require_once('functions.php');
-require_once('config/config.php');
-require_once('Database.php');
+require_once 'functions.php';
+require_once 'config/config.php';
+require_once 'Database.php';
 
 
 $dbHelper = new Database(...$db_cfg);
@@ -106,11 +106,13 @@ if (!isset($main_content)) {
         'categories' => $categories
     ] );
 }
+$navigation = include_template( 'navigation.php', ['categories' => $categories] );
 
 $layout_content = include_template( 'layout.php', [
     'page_title' => 'Yeticave - Регистрация пользователя',
     'content' => $main_content,
     'categories' => $categories,
+    'navigation' => $navigation
 ] );
 
 print($layout_content);

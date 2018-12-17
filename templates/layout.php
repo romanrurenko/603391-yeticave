@@ -50,6 +50,8 @@
     </header>
 
     <main class="container">
+
+        <?= $navigation ?? ''?>
         <?= $content ?>
     </main>
 </div>
@@ -57,11 +59,10 @@
 <footer class="main-footer">
     <nav class="nav">
         <ul class="nav__list container">
-            <!--заполните этот список из массива категорий-->
             <?php
-            foreach ($categories as $index): ?>
+            foreach ($categories as $value): ?>
                 <li class="nav__item">
-                    <a href="pages/all-lots.html"><?= $index['name'] ?></a>
+                    <a href="all-lots.php?filter=<?=$value['id']?>"><?= $value['name'] ?></a>
                 </li>
             <?php endforeach; ?>
         </ul>
@@ -110,7 +111,7 @@
             </a>
         </div>
         <?php if (isset( $_SESSION['user'] )): ?>
-            <a class="main-footer__add-lot button" href="add-lot.html">Добавить лот</a>
+            <a class="main-footer__add-lot button" href="add.php">Добавить лот</a>
         <?php endif; ?>
         <div class="main-footer__developed-by">
             <span class="visually-hidden">Разработано:</span>

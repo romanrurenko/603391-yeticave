@@ -1,8 +1,8 @@
 <?php
 
-require_once('functions.php');
-require_once('config/config.php');
-require_once('Database.php');
+require_once 'functions.php';
+require_once 'config/config.php';
+require_once 'Database.php';
 
 session_start();
 $bid_errors = [];
@@ -39,7 +39,7 @@ if ($id > 0) {
 
 
     // получаем данные лота
-    $sql = 'SELECT l.id,l.bid_step,l.title,l.start_price,l.image_url,l.description,date_end,c.name AS category
+    $sql = 'SELECT l.id,l.bid_step,l.title,l.start_price,l.image_url,l.description,date_end,c.name,l.winner AS category
             FROM lots l JOIN categories c ON c.id = l.category_id WHERE l.id=' . $id;
     $dbHelper->executeQuery( $sql );
     if (!$dbHelper->getLastError()) {

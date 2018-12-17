@@ -1,19 +1,11 @@
-<nav class="nav">
-    <ul class="nav__list container">
-        <?php foreach ($categories as $value): ?>
-            <li class="nav__item">
-                <a href="pages/all-lots.html"><?= $value['name'] ?></a>
-            </li>
-        <?php endforeach; ?>
-    </ul>
-</nav>
+<?php $classname = isset( $errors['wrong_password'] ) ? 'form--invalid' : '';
+$message = $errors['wrong_password'] ?? 'Вход'; ?>
 
-<?php $classname = count( $errors ) ? 'form--invalid' : ''; ?>
 <form class="form container   <?= $classname ?>" action="login.php" method="post" enctype="multipart/form-data">
-    <h2>Вход</h2>
+    <h2><?=$message?></h2>
     <?php
     $classname = isset( $errors['email'] ) ? 'form__item--invalid' : '';
-    $error = $errors['email'] ?? 'Введите e-mail';
+    $error = isset( $errors['email'] ) ? $errors['email'] : '';
     $value = $form['email'] ?? ''; ?>
     <div class="form__item  <?= $classname ?>"> <!-- form__item--invalid -->
         <label for="email">E-mail*</label>
@@ -21,7 +13,7 @@
         <span class="form__error"><?= $error ?></span>
     </div>
     <?php $classname = isset( $errors['password'] ) ? 'form__item--invalid' : '';
-    $value = $errors['password'] ?? 'Введите пароль'; ?>
+    $value = $errors['password'] ?? ''; ?>
     <div class="form__item form__item--last <?= $classname ?>">
         <label for="password">Пароль*</label>
         <input id="password" type="password" name="login[password]" placeholder="Введите пароль" value="">

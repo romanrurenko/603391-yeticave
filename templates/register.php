@@ -1,15 +1,3 @@
-<nav class="nav">
-    <ul class="nav__list container">
-        <!--список из массива категорий-->
-        <?php
-        foreach ($categories as $index): ?>
-            <li class="nav__item">
-                <a href="pages/all-lots.html"><?= $index['name'] ?></a>
-            </li>
-        <?php endforeach; ?>
-    </ul>
-</nav>
-
 <?php $classname = count( $errors ) ? 'form--invalid' : ''; ?>
 
 <form class="form container  <?= $classname ?>" action="register.php" method="post" enctype="multipart/form-data">
@@ -67,7 +55,7 @@
             </div>
         </div>
         <div class="form__input-file">
-            <input class="visually-hidden" type="file" name="file" id="photo2" value="" required>
+            <input class="visually-hidden" type="file" name="file" id="photo2" value="">
             <label for="photo2">
                 <span>+ Добавить</span>
             </label>

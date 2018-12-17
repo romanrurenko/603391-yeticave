@@ -1,6 +1,7 @@
 <?php
 require_once 'functions.php';
 require_once 'config/config.php';
+require_once 'Database.php';
 
 // загружаем категории
 $dbHelper = new Database( ...$db_cfg );
@@ -98,15 +99,18 @@ if (!$_SESSION['user']) {
         }
     }
 } else {
-    // если пришли не POST запроса
+    // если пришли не c POST запроса
     $page_content = include_template( 'add-lot.php', ['categories' => $categories] );
 
 }
 
+$navigation = include_template( 'navigation.php', ['categories' => $categories] );
+
 $layout_content = include_template( 'layout.php', [
     'page_title' => 'Yeticave - Добавление лота',
     'content' => $page_content,
-    'categories' => $categories
+    'categories' => $categories,
+    'navigation' => $navigation
 ] );
 
 print($layout_content);

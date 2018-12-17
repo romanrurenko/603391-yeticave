@@ -34,6 +34,9 @@ if ($dbHelper->getLastError()) {
             $errors[$key] = 'Это поле отсутствует';
         }
     }
+        if (!filter_var( $form['email'], FILTER_VALIDATE_EMAIL )) {
+            $errors['email'] = 'Введите корректный email';
+        }
 
         $email = mysqli_real_escape_string( $link, $form['email'] );
         $user = null;
@@ -41,19 +44,17 @@ if ($dbHelper->getLastError()) {
         $dbHelper->executeQuery( $sql );
         if (!$dbHelper->getLastError()) {
             $array = $dbHelper->getResultAsArray();
-            $user =  $array[0];
+            $user =  $array[0] ?? null;
         } else {
             show_error( $content, $dbHelper->getLastError() );
         }
 
-        if ((!count( $errors )) && $user) {
-            if (password_verify( $form['password'], $user['password'] )) {
-                $_SESSION['user'] = $user;
-            } else {
-                $errors['password'] = 'Вы ввели неверный пароль';
-            }
+        $password_is_correct = password_verify( $form['password'], $user['password']);
+
+        if ($user !== null && $password_is_correct) {
+            $_SESSION['user'] = $user;
         } else {
-            $errors['email'] = 'Такой пользователь не найден';
+            $errors['wrong_password'] = 'Вы ввели неверный email/пароль';
         }
 
         if (count( $errors )) {
@@ -69,20 +70,23 @@ if ($dbHelper->getLastError()) {
 
 }
 
+$navigation = include_template( 'navigation.php', ['categories' => $categories] );
 
 if (!isset( $main_content )) {
     $main_content = include_template( 'login.php', [
-        'form' => $form ?? '',
         'errors' => $errors ?? '',
         'dict' => $dict ?? '',
         'categories' => $categories
     ] );
 }
 
+
+
 $layout_content = include_template( 'layout.php', [
     'page_title' => 'Yeticave - Станица входа',
     'content' => $main_content,
-    'categories' => $categories,
+    'navigation' => $navigation,
+    'categories' => $categories
 ] );
 
 print($layout_content);
