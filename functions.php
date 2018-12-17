@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @param $name
+ * @param $data
+ * @return false|string
+ */
 function include_template($name, $data)
 {
     $name = 'templates/' . $name;
@@ -18,6 +23,10 @@ function include_template($name, $data)
     return $result;
 }
 
+/**
+ * @param $value
+ * @return string
+ */
 function format_price($value)
 {
     $value = ceil( $value );
@@ -25,12 +34,20 @@ function format_price($value)
     return $value . ' <b class="rub">р</b>';
 }
 
+/**
+ * @param $str
+ * @return string
+ */
 function esc($str)
 {
-    $text = htmlspecialchars( $str );
-    return $text;
+    return htmlspecialchars( $str );
 }
 
+/**
+ * @param $date_start
+ * @param $date_end
+ * @return string
+ */
 function get_time_until_date_end($date_start, $date_end)
 {
     $next_day = strtotime( $date_end );
@@ -46,6 +63,11 @@ function get_time_until_date_end($date_start, $date_end)
     return $result;
 }
 
+/**
+ * @param $date_start
+ * @param $date_end
+ * @return false|string
+ */
 function get_time_after_date($date_start, $date_end)
 {
     $diff = $date_end - strtotime( $date_start );
@@ -54,18 +76,28 @@ function get_time_after_date($date_start, $date_end)
         $minutes = floor( ($diff / 60) % 3600 );
         $result = ($diff > 3600) ? sprintf( '%2d', $hours ) . ' час. назад' : sprintf( '%2d', $minutes ) . ' мин. назад';
     } else {
-        $result = date( "d-m-Y в H:i:s", strtotime( $date_start ) );
+        $result = date( 'd-m-Y в H:i:s', strtotime( $date_start ) );
     }
     return $result;
 }
 
 
+/**
+ * @param $content
+ * @param $error
+ */
 function show_error(&$content, $error)
 {
     $content = include_template( 'error.php', ['error' => $error] );
 }
 
 
+/**
+ * @param $link
+ * @param $sql
+ * @param array $data
+ * @return bool|mysqli_stmt
+ */
 function db_get_prepare_stmt($link, $sql, $data = [])
 {
     $stmt = mysqli_prepare( $link, $sql );
@@ -79,7 +111,7 @@ function db_get_prepare_stmt($link, $sql, $data = [])
                 $type = 'i';
             } else if (is_string( $value )) {
                 $type = 's';
-            } else if (is_double( $value )) {
+            } else if (is_float( $value )) {
                 $type = 'd';
             }
 
@@ -96,9 +128,13 @@ function db_get_prepare_stmt($link, $sql, $data = [])
     return $stmt;
 }
 
-function isValidTimeStamp($timestamp)
+/**
+ * @param $timestamp
+ * @return bool
+ */
+function is_valid_time_stump($timestamp)
 {
-    return ((string) (int) $timestamp === $timestamp)
+    return ( (int) $timestamp === $timestamp)
         && ($timestamp <= PHP_INT_MAX)
         && ($timestamp >= ~PHP_INT_MAX);
 }

@@ -1,21 +1,18 @@
 <?php
-require_once('functions.php');
-require_once('config/config.php');
-
+require_once 'functions.php';
+require_once 'config/config.php';
 
 // загружаем категории
-if (!$link) {
-    $db_error = mysqli_connect_error();
-    show_error( $page_content, $db_error );
+$dbHelper = new Database( ...$db_cfg );
+if ($dbHelper->getLastError()) {
+    show_error( $content, $dbHelper->getLastError() );
 } else {
-    $sql = 'SELECT `id`, `name`, `style_name` FROM categories ORDER BY `id`';
-    $result = mysqli_query( $link, $sql );
-
-    if ($result) {
-        $categories = mysqli_fetch_all( $result, MYSQLI_ASSOC );
+    $sql = 'SELECT id, name, style_name FROM categories ORDER BY id';
+    $dbHelper->executeQuery( $sql );
+    if (!$dbHelper->getLastError()) {
+        $categories = $dbHelper->getResultAsArray();
     } else {
-        $error = mysqli_error( $link );
-        show_error( $page_content, $error );
+        show_error( $content, $dbHelper->getLastError() );
     }
 }
 
@@ -33,10 +30,9 @@ if (!$_SESSION['user']) {
     $errors = [];
 
     foreach ($required as $key) {
+
         if (isset( $lot[$key] )) {
-            if (empty( $lot[$key] )) {
-                $errors[$key] = 'Это поле надо заполнить';
-            }
+            $errors[$key] = empty( $lot[$key] )? 'Это поле надо заполнить':'';
         } else {
             $errors[$key] = 'Это поле отсутствует';
         }
@@ -57,8 +53,10 @@ if (!$_SESSION['user']) {
         if ($file_type !== 'image/jpeg' && $file_type !== 'image/png') {
             $errors['path'] = 'Загрузите картинку в формате JPG или PNG';
         } else {
-            if (move_uploaded_file( $tmp_name, $lot_image_path . $file_name )) {
-                $lot['path'] = $lot_image_path . $file_name;
+            $full_path = $lot_image_path . $file_name;
+
+            if (move_uploaded_file( $tmp_name, $full_path )) {
+                $lot['path'] = $full_path;
             } else {
                 $errors['path'] = 'Ошибка загрузки файла';
             }
@@ -68,7 +66,7 @@ if (!$_SESSION['user']) {
         $errors['path'] = 'Вы не загрузили файл';
     }
 
-    $is_valid_date = isValidTimeStamp(strtotime($lot['date_end']));
+    $is_valid_date = is_valid_time_stump(strtotime($lot['date_end']));
 
     if (!$is_valid_date) {
         $errors['date_end'] = 'Некорректная дата';
@@ -85,8 +83,8 @@ if (!$_SESSION['user']) {
 
         //если нет ошибок
         //вносим данные нового лота в базу
-        $sql = 'INSERT INTO `lots` (`date_add`,`image_url`, `title`, `description`, `start_price`, `date_end`,
-                     `bid_step`, `category_id`, `owner_id`) VALUES (NOW(), ?, ?, ?, ?, ?, ?, ?, 1);';
+        $sql = 'INSERT INTO lots (date_add,image_url, title, description, start_price, date_end,
+                     bid_step, category_id, owner_id) VALUES (NOW(), ?, ?, ?, ?, ?, ?, ?, 1);';
         $stmt = db_get_prepare_stmt( $link, $sql, [$lot['path'], $lot['title'], $lot['description'], $lot['start_price'], $lot['date_end'],
             $lot['bid_step'], $lot['category']] );
 
@@ -112,14 +110,3 @@ $layout_content = include_template( 'layout.php', [
 ] );
 
 print($layout_content);
-
-
-
-
-
-
-
-
-
-
-

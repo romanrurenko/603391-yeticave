@@ -88,7 +88,7 @@ if ($id > 0) {
 
             //если нет ошибок вносим ставку в БД
             if (empty( $bid_errors )) {
-                $sql = 'INSERT INTO `bids` (`start_date`,`user_id`, `lot_id`, `amount`) VALUES (NOW(), ?, ?, ?);';
+                $sql = 'INSERT INTO bids (start_date,user_id, lot_id, amount) VALUES (NOW(), ?, ?, ?);';
                 $stmt = db_get_prepare_stmt( $link, $sql, [$_SESSION['user']['id'], $id, $cost] );
                 $res = mysqli_stmt_execute( $stmt );
                 if ($res) {

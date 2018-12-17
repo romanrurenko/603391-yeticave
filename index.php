@@ -1,8 +1,8 @@
 <?php
-require_once('functions.php');
-require_once('config/config.php');
-require_once('Database.php');
-require_once('winner.php');
+require_once 'functions.php';
+require_once 'config/config.php';
+require_once 'Database.php';
+require_once 'winner.php';
 
 session_start();
 
@@ -23,7 +23,7 @@ if ($dbHelper->getLastError()) {
     $cur_page = $_GET['page'] ?? 1;
     $page_items_count = 6;
 
-    $dbHelper->executeQuery( "SELECT COUNT(*) as cnt FROM lots" );
+    $dbHelper->executeQuery( 'SELECT COUNT(*) as cnt FROM lots' );
     $total_items_count = $dbHelper->getResultAsArray()[0]['cnt'];
     $pages_count = ceil( $total_items_count / $page_items_count );
     $offset = ($cur_page - 1) * $page_items_count;

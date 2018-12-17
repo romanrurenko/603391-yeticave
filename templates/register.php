@@ -31,7 +31,7 @@
 
     <div class="form__item <?= $classname ?>">
         <label for="password">Пароль*</label>
-        <input id="password" type="text" name="signup[password]"
+        <input id="password" type="password" name="signup[password]"
                placeholder="Введите пароль" value="<?= $value ?>" required>
         <span class="form__error">Введите пароль</span>
     </div>

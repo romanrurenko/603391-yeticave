@@ -26,8 +26,8 @@ if ($dbHelper->getLastError()) {
             }
             if (count( $bid )) {
                 // вносим значения победителей
-                $dbHelper->executeQuery( 'UPDATE `lots` SET winner_id = ' . $bid[0]['user_id'] .
-                    ' WHERE id = ' . $bid[0]['lot_id'] . ';' );
+                $dbHelper->executeQuery( 'UPDATE lots SET winner_id = ' . $bid[0]['user_id'] .
+                    ' WHERE id = ' . $bid[0]['lot_id'] );
 
                 if ($dbHelper->getLastError()) {
                     show_error( $content, $dbHelper->getLastError() );

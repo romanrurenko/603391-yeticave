@@ -1,7 +1,7 @@
 <?php
-require_once('functions.php');
-require_once('config/config.php');
-require_once('Database.php');
+require_once 'functions.php';
+require_once 'config/config.php';
+require_once 'Database.php';
 
 
 $dbHelper = new Database( ...$db_cfg );
@@ -26,7 +26,6 @@ if ($dbHelper->getLastError()) {
         $required = ['email', 'password'];
         foreach ($required as $key) {
 
-        }
         if (isset( $form[$key] )) {
             if (empty( $form[$key] )) {
                 $errors[$key] = 'Это поле надо заполнить';
@@ -34,7 +33,7 @@ if ($dbHelper->getLastError()) {
         } else {
             $errors[$key] = 'Это поле отсутствует';
         }
-
+    }
 
         $email = mysqli_real_escape_string( $link, $form['email'] );
         $user = null;

@@ -10,7 +10,7 @@ if ($search) {
     if ($dbHelper->getLastError()) {
         show_error( $content, $dbHelper->getLastError() );
     } else {
-        $sql = 'SELECT `id`, `name`, `style_name` FROM categories ORDER BY `id`';
+        $sql = 'SELECT id, name, style_name FROM categories ORDER BY id';
         $dbHelper->executeQuery( $sql );
         if (!$dbHelper->getLastError()) {
             $categories = $dbHelper->getResultAsArray();
