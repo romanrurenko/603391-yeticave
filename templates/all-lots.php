@@ -1,16 +1,3 @@
-<section class="promo">
-    <h2 class="promo__title">Нужен стафф для катки?</h2>
-    <p class="promo__text">На нашем интернет-аукционе ты найдёшь самое эксклюзивное сноубордическое и горнолыжное
-        снаряжение.</p>
-    <ul class="promo__list">
-        <!--список из массива категорий-->
-        <?php
-        foreach ($categories as $index): ?>
-            <li class="promo__item promo__item--<?= $index['style_name'] ?>">
-                <a class="promo__link" href="all-lots.php?filter=<?=$index['id']?>"><?= $index['name'] ?></a>
-            </li>
-        <?php endforeach; ?>
-    </ul>
 </section>
 <section class="lots">
     <div class="lots__header">

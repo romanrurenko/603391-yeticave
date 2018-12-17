@@ -1,84 +1,92 @@
 <?php
-require_once('data.php');
-require_once('functions.php');
-require_once('config.php');
+require_once 'functions.php';
+require_once 'config/config.php';
+require_once 'Database.php';
 
 
-if (!$link) {
-    $error = mysqli_connect_error();
-    $main_content = include_template('error.php', ['error' => $error]);
+$dbHelper = new Database( ...$db_cfg );
+
+if ($dbHelper->getLastError()) {
+    show_error( $content, $dbHelper->getLastError() );
 } else {
-    $sql = 'SELECT id, name, style_name FROM categories ORDER BY id';
-    $result = mysqli_query($link, $sql);
 
-    if ($result) {
-        $categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    $dbHelper->executeQuery( 'SELECT id, name, style_name FROM categories ORDER BY id' );
+
+    if (!$dbHelper->getLastError()) {
+        $categories = $dbHelper->getResultAsArray();
     } else {
-        $error = mysqli_error($link);
-        show_error($main_content, $error);
+        show_error( $content, $dbHelper->getLastError() );
     }
-}
 
-session_start();
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
-    $form = $_POST['login'];
-    $errors = [];
-    $required = ['email', 'password'];
-    foreach ($required as $key) {
-        if (isset($form[$key])) {
-            if (empty($form[$key])) {
+    session_start();
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset( $_POST['login'] )) {
+        $form = $_POST['login'];
+        $errors = [];
+        $required = ['email', 'password'];
+        foreach ($required as $key) {
+
+        if (isset( $form[$key] )) {
+            if (empty( $form[$key] )) {
                 $errors[$key] = 'Это поле надо заполнить';
             }
         } else {
             $errors[$key] = 'Это поле отсутствует';
         }
     }
+        if (!filter_var( $form['email'], FILTER_VALIDATE_EMAIL )) {
+            $errors['email'] = 'Введите корректный email';
+        }
 
-    $email = mysqli_real_escape_string($link, $form['email']);
-    $sql = "SELECT * FROM users WHERE email = '$email'";
-    $res = mysqli_query($link, $sql);
-    $user = $res ? mysqli_fetch_array($res, MYSQLI_ASSOC) : null;
+        $email = mysqli_real_escape_string( $link, $form['email'] );
+        $user = null;
+        $sql = "SELECT * FROM users WHERE email = '$email'";
+        $dbHelper->executeQuery( $sql );
+        if (!$dbHelper->getLastError()) {
+            $array = $dbHelper->getResultAsArray();
+            $user =  $array[0] ?? null;
+        } else {
+            show_error( $content, $dbHelper->getLastError() );
+        }
 
-    if ((!count($errors)) && $user) {
-        if (password_verify($form['password'], $user['password'])) {
+        $password_is_correct = password_verify( $form['password'], $user['password']);
+
+        if ($user !== null && $password_is_correct) {
             $_SESSION['user'] = $user;
+        } else {
+            $errors['wrong_password'] = 'Вы ввели неверный email/пароль';
         }
-        else {
-            $errors['password'] = 'Вы ввели неверный пароль';
+
+        if (count( $errors )) {
+            $page_content = include_template( 'login.php', ['form' => $form, 'errors' => $errors] );
+        } else {
+            header( 'Location: /index.php' );
+            exit();
         }
-    }
-    else {
-        $errors['email'] = 'Такой пользователь не найден';
+    } else {
+        $page_content = isset( $_SESSION['user'] ) ? include_template( 'index.php',
+            ['username' => $_SESSION['user']['name']] ) : include_template( 'login.php', [] );
     }
 
-    if (count($errors)) {
-        $page_content = include_template('login.php', ['form' => $form, 'errors' => $errors]);
-    }
-    else {
-        header('Location: /index.php');
-        exit();
-    }
-}
-else {
-    $page_content = isset($_SESSION['user']) ? include_template('index.php',
-        ['username' => $_SESSION['user']['name']]) : include_template('login.php', []);
 }
 
+$navigation = include_template( 'navigation.php', ['categories' => $categories] );
 
-
-if (!$main_content) {
-    $main_content = include_template('login.php', [
-        'form' => $form,
-        'errors' => $errors,
-        'dict' => $dict,
+if (!isset( $main_content )) {
+    $main_content = include_template( 'login.php', [
+        'errors' => $errors ?? '',
+        'dict' => $dict ?? '',
         'categories' => $categories
-    ]);
+    ] );
 }
 
-$layout_content = include_template('layout.php', [
-    'page_title' => 'Yeticave - Регистрация пользователя',
+
+
+$layout_content = include_template( 'layout.php', [
+    'page_title' => 'Yeticave - Станица входа',
     'content' => $main_content,
-    'categories' => $categories,
-]);
+    'navigation' => $navigation,
+    'categories' => $categories
+] );
 
 print($layout_content);
