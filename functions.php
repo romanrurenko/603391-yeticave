@@ -134,7 +134,7 @@ function db_get_prepare_stmt($link, $sql, $data = [])
  */
 function is_valid_time_stump($timestamp)
 {
-    return ( (int) $timestamp === $timestamp)
-        && ($timestamp <= PHP_INT_MAX)
-        && ($timestamp >= ~PHP_INT_MAX);
+    $max_date_end = 3600*24*30;
+    return ($timestamp <= time() + $max_date_end)
+        && ($timestamp >= time() - $max_date_end);
 }

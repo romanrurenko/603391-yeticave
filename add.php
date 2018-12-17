@@ -52,7 +52,7 @@ if (!$_SESSION['user']) {
         $file_type = finfo_file( $file_info, $tmp_name );
 
         if ($file_type !== 'image/jpeg' && $file_type !== 'image/png') {
-            $errors['path'] = 'Загрузите картинку в формате JPG или PNG';
+            $errors['path'] = 'Загрузите фото в формате JPG или PNG';
         } else {
             $full_path = $lot_image_path . $file_name;
 
@@ -72,6 +72,11 @@ if (!$_SESSION['user']) {
     if (!$is_valid_date) {
         $errors['date_end'] = 'Некорректная дата';
     }
+
+    $errors = array_filter($errors, function($item){
+        return $item;
+    });
+
 
     // если есть ошибки
     if (count( $errors )) {

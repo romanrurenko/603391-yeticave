@@ -4,7 +4,7 @@ require_once 'config/config.php';
 require_once 'Database.php';
 
 
-$dbHelper = new Database(...$db_cfg);
+$dbHelper = new Database( ...$db_cfg );
 
 if ($dbHelper->getLastError()) {
     show_error( $content, $dbHelper->getLastError() );
@@ -35,7 +35,7 @@ if ($dbHelper->getLastError()) {
 
 
         if (!filter_var( $form['email'], FILTER_VALIDATE_EMAIL )) {
-            $errors['incorrect_email'] = 'Введите корректный email';
+            $errors['email'] = 'Введите корректный email';
         }
 
         // проверяем изображение
@@ -45,8 +45,8 @@ if ($dbHelper->getLastError()) {
             $file_info = finfo_open( FILEINFO_MIME_TYPE );
             $file_type = finfo_file( $file_info, $tmp_name );
 
-            if ($file_type !== 'image/jpeg') {
-                $errors['path'] = 'Загрузите картинку в формате JPG';
+            if ($file_type !== 'image/jpeg' && $file_type !== 'image/png') {
+                $errors['path'] = 'Изображение дожно быть в формате JPG или PNG';
             } else {
                 if (move_uploaded_file( $tmp_name, $avatar_path . $file_name )) {
                     $form['path'] = $avatar_path . $file_name;
@@ -54,8 +54,6 @@ if ($dbHelper->getLastError()) {
                     $errors['path'] = 'Ошибка загрузки файла';
                 }
             }
-        } else {
-            $errors['path'] = 'Вы не загрузили файл';
         }
 
         if (!count( $errors )) {
@@ -72,7 +70,7 @@ if ($dbHelper->getLastError()) {
                     $sql = 'INSERT INTO users (date_add, email, name, password, contacts, avatar_url)
                         VALUES (NOW(),?, ?, ?, ?, ?)';
                     $stmt = db_get_prepare_stmt( $link, $sql, [$form['email'], $form['name'],
-                        $password, $form['contacts'], $form['path']] );
+                        $password, $form['contacts'], $form['path'] ?? $default_avatar] );
                     $res = mysqli_stmt_execute( $stmt );
 
                     if ($res && empty( $errors )) {
@@ -98,7 +96,7 @@ if ($dbHelper->getLastError()) {
     }
 }
 
-if (!isset($main_content)) {
+if (!isset( $main_content )) {
     $main_content = include_template( 'register.php', [
         'form' => $form ?? null,
         'errors' => $errors ?? null,

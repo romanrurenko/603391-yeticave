@@ -1,4 +1,8 @@
-<?php $classname = count( $errors ) ? 'form--invalid' : ''; ?>
+<?php
+
+
+    $classname = count( $errors ?? [] )  ? 'form--invalid' : '';
+?>
 
 <form class="form container  <?= $classname ?>" action="register.php" method="post" enctype="multipart/form-data">
     <!-- form--invalid -->
@@ -11,7 +15,8 @@
         <label for="email">E-mail*</label>
         <input id="email" type="text" name="signup[email]"
                placeholder="Введите e-mail" value="<?= $value ?>" required>
-        <span class="form__error">Введите e-mail</span>
+        <?php $value = $errors['email'] ?? '';?>
+        <span class="form__error"><?= $value ?></span>
     </div>
 
     <?php $classname = isset( $errors['password'] ) ? 'form__item--invalid' : '';
@@ -21,7 +26,8 @@
         <label for="password">Пароль*</label>
         <input id="password" type="password" name="signup[password]"
                placeholder="Введите пароль" value="<?= $value ?>" required>
-        <span class="form__error">Введите пароль</span>
+        <?php $value = $errors['password'] ?? '';?>
+        <span class="form__error"><?= $value ?></span>
     </div>
 
     <?php $classname = isset( $errors['name'] ) ? 'form__item--invalid' : '';
@@ -31,7 +37,8 @@
         <label for="name">Имя*</label>
         <input id="name" type="text" name="signup[name]" placeholder="Введите имя"
                value="<?= $value ?>" required>
-        <span class="form__error">Введите имя</span>
+        <?php $value = $errors['name'] ?? '';?>
+        <span class="form__error"><?= $value ?></span>
     </div>
 
     <?php $classname = isset( $errors['contacts'] ) ? 'form__item--invalid' : '';
@@ -41,10 +48,11 @@
         <label for="message">Контактные данные*</label>
         <textarea id="message" name="signup[contacts]"
                   placeholder="Напишите как с вами связаться" required><?= esc($value) ?></textarea>
-        <span class="form__error">Напишите как с вами связаться</span>
+        <?php $value = $errors['contacts'] ?? '';?>
+        <span class="form__error"><?= $value ?></span>
     </div>
 
-    <?php $classname = isset( $file['path'] ) ? 'form__item--uploaded ' : ''; ?>
+    <?php $classname = isset( $errors['path'] ) ? 'form__item--invalid' : ''; ?>
 
     <div class="form__item form__item--file form__item--last <?= $classname ?>">
         <label>Аватар</label>
@@ -59,7 +67,10 @@
             <label for="photo2">
                 <span>+ Добавить</span>
             </label>
+
         </div>
+        <?php $value = $errors['path'] ?? '';?>
+        <span class="form__error"><?= $value ?></span>
     </div>
 
 
@@ -67,11 +78,6 @@
     if (($errors)) {
         ?>
         <span class="form__error form__error--bottom">Пожалуйста, исправьте ошибки в форме.</span>
-        <ul>
-            <?php foreach ($errors as $error => $value): ?>
-                <li><strong><?= $dict[$error] ?? ''; ?>:</strong> <?= esc($value); ?></li>
-            <?php endforeach; ?>
-        </ul>
     <?php } ?>
 
 

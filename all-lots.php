@@ -26,8 +26,8 @@ if ($dbHelper->getLastError()) {
     $cur_filter = ($cur_filter===0)?'ANY':$cur_filter;
     $page_items_count = 9;
 
-    $dbHelper->executeQuery( 'SELECT COUNT(*) as cnt FROM lots  WHERE winner_id IS NULL AND date_end > NOW()
-            ORDER BY date_add DESC' );
+    $dbHelper->executeQuery( 'SELECT COUNT(*) as cnt FROM lots  WHERE id = ?
+            ORDER BY date_add DESC', [$cur_filter] );
     $total_items_count = $dbHelper->getResultAsArray()[0]['cnt'];
     $pages_count = ceil( $total_items_count / $page_items_count );
     $offset = ($cur_page - 1) * $page_items_count;
@@ -35,7 +35,7 @@ if ($dbHelper->getLastError()) {
     $sql = 'SELECT l.id, l.title,l.start_price,l.image_url,date_end,c.name AS category
             FROM lots l
             JOIN categories c ON c.id = l.category_id
-            WHERE l.winner_id IS NULL AND date_end > NOW() AND c.id = ?
+            WHERE c.id = ?
             ORDER BY l.date_add DESC  LIMIT ? OFFSET ?';
 
     $dbHelper->executeQuery( $sql, [$cur_filter, $page_items_count, $offset] );
@@ -57,7 +57,7 @@ if ($dbHelper->getLastError()) {
 $navigation = include_template( 'navigation.php', ['categories' => $categories] );
 
 $layout_content = include_template( 'layout.php', [
-    'page_title' => 'Yeticave - Главная страница',
+    'page_title' => 'Yeticave - Лоты по категории',
     'content' => $main_content ?? '',
     'navigation' => $navigation,
     'categories' => $categories
