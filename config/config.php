@@ -10,6 +10,8 @@ $lot_image_path = 'img/lots/';
 $avatar_path = 'img/avatars/';
 $categories = [];
 $content = '';
+$default_avatar ='img/user.jpg';
+
 
 
 date_default_timezone_set( 'Asia/Novosibirsk' );

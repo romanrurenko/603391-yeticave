@@ -8,7 +8,7 @@
             <p class="lot-item__category">Категория: <span><?= $lot['category'] ?></span></p>
             <p class="lot-item__description"><?= esc($lot['description']) ?></p>
         </div>
-        <?php if (isset( $_SESSION['user'] )): ?>
+        <?php if (isset( $_SESSION['user'] ) && isset($lot['winner_id'])): ?>
         <div class="lot-item__right">
             <div class="lot-item__state">
                 <div class="lot-item__timer timer">

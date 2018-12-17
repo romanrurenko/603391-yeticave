@@ -1,7 +1,7 @@
 </section>
 <section class="lots">
     <div class="lots__header">
-        <h2>Открытые лоты</h2>
+        <h2>Лоты по категориям </h2>
     </div>
     <ul class="lots__list">
         <?php
