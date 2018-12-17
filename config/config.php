@@ -11,6 +11,7 @@ $avatar_path = 'img/avatars/';
 $categories = [];
 $content = '';
 
+
 date_default_timezone_set( 'Asia/Novosibirsk' );
 setlocale( LC_ALL, 'ru_RU' );
 
