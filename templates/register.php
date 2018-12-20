@@ -1,8 +1,7 @@
-<?php
+<main>
+<?= $navigation??'' ?>
 
-
-    $classname = count( $errors ?? [] )  ? 'form--invalid' : '';
-?>
+<?php $classname = count( $errors ?? [] )  ? 'form--invalid' : ''; ?>
 
 <form class="form container  <?= $classname ?>" action="register.php" method="post" enctype="multipart/form-data">
     <!-- form--invalid -->
@@ -84,3 +83,4 @@
     <button type="submit" class="button">Зарегистрироваться</button>
     <a class="text-link" href="login.php">Уже есть аккаунт</a>
 </form>
+</main>

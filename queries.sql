@@ -13,14 +13,14 @@ INSERT INTO `users` (`id`, `email`, `password`, `name`, `avatar_url`, `contacts`
 (2, 'two@mail.ru', '54321', 'prtrov', 'avatar2.jpg', 'г.Москва, ул. Чкалова, 2', '2018-11-26 21:28:46'),
 (3, 'third@mail.ru', '121212', 'sidorov', 'avatar3.png', 'г. Яровое, ул. 40-лет Октабря, 10', '2018-11-21 23:23:49');
 
-INSERT INTO `lots` (`id`, `date_add`, `title`, `description`, `image_url`, `start_price`, `date_end`, `bid_step`, `owner_id`, `winner_id`, `category_id`) VALUES
-(1, '2018-11-26 22:32:07', '2014 Rossignol District Snowboard', 'Крутой сноуборд. Отечественный.', 'img/lot-1.jpg', 10999, '2018-12-26 22:32:15', 10, 1, NULL, 1),
-(2, '2018-11-21 22:47:08', 'DC Ply Mens 2016/2017 Snowboard', 'Современный сноуборд.', 'img/lot-2.jpg', 159999, '2018-12-26 22:27:16', 150, 2, NULL, 2),
-(3, '2018-11-22 22:47:08', 'Крепления Union Contact Pro 2015 года размер L/XL', 'В отличном состоянии.', 'img/lot-3.jpg', 8000, '2018-12-26 22:27:16', 20, 1, NULL, 3),
-(4, '2018-11-23 22:47:08', 'Ботинки для сноуборда DC Mutiny Charocal', 'Редкие.', 'img/lot-4.jpg', 10999, '2018-11-24 22:27:16', 25, 1, 2, 4),
-(5, '2018-11-24 22:47:08', 'Куртка для сноуборда DC Mutiny Charocal', 'Куртка замшевая.', 'img/lot-5.jpg', 7500, '2018-11-26 22:27:16', 50, 2, 1, 5),
-(6, '2018-11-24 22:47:08', 'Маска Oakley Canopy', 'Хит сезона.', 'img/lot-6.jpg', 5400, '2018-12-26 22:27:16', 20, 1, NULL, 6),
-(7, '2018-11-28 22:47:08', 'Ботинки Henry Snow', 'Спецзаказ.', 'img/lot-4.jpg', 49999, '2018-11-29 23:16:42', 40, 1, NULL, 3);
+INSERT INTO `lots` (`id`, `date_add`, `title`, `description`, `image_url`, `start_price`, `date_end`, `bid_step`, `owner_id`, `winner_id`, `category_id`, `win_bid_id`, NULL) VALUES
+(1, '2018-11-26 22:32:07', '2014 Rossignol District Snowboard', 'Крутой сноуборд. Отечественный.', 'img/lot-1.jpg', 10999, '2018-12-26 22:32:15', 10, 1, NULL, 1, NULL),
+(2, '2018-11-21 22:47:08', 'DC Ply Mens 2016/2017 Snowboard', 'Современный сноуборд.', 'img/lot-2.jpg', 159999, '2018-12-26 22:27:16', 150, 2, NULL, 2, NULL),
+(3, '2018-11-22 22:47:08', 'Крепления Union Contact Pro 2015 года размер L/XL', 'В отличном состоянии.', 'img/lot-3.jpg', 8000, '2018-12-26 22:27:16', 20, 1, NULL, 3, NULL),
+(4, '2018-11-23 22:47:08', 'Ботинки для сноуборда DC Mutiny Charocal', 'Редкие.', 'img/lot-4.jpg', 10999, '2018-11-24 22:27:16', 25, 1, 2, 4, NULL),
+(5, '2018-11-24 22:47:08', 'Куртка для сноуборда DC Mutiny Charocal', 'Куртка замшевая.', 'img/lot-5.jpg', 7500, '2018-11-26 22:27:16', 50, 2, 1, 5, NULL),
+(6, '2018-11-24 22:47:08', 'Маска Oakley Canopy', 'Хит сезона.', 'img/lot-6.jpg', 5400, '2018-12-26 22:27:16', 20, 1, NULL, 6, NULL),
+(7, '2018-11-28 22:47:08', 'Ботинки Henry Snow', 'Спецзаказ.', 'img/lot-4.jpg', 49999, '2018-11-29 23:16:42', 40, 1, NULL, 3, NULL);
 
 INSERT INTO `bids` (`id`, `start_date`, `user_id`, `lot_id`, `amount`) VALUES
 (1, '2018-11-26 23:08:56', 1, 1, 1000),

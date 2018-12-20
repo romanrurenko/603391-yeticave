@@ -5,19 +5,21 @@ require_once 'Database.php';
 
 $search = trim( $_GET['search'] ?? '') ;
 
-if ($search !== '') {
-    $dbHelper = new Database( ...$db_cfg );
-    if ($dbHelper->getLastError()) {
+
+$dbHelper = new Database( ...$db_cfg );
+if ($dbHelper->getLastError()) {
         show_error( $content, $dbHelper->getLastError() );
     } else {
         $sql = 'SELECT id, name, style_name FROM categories ORDER BY id';
         $dbHelper->executeQuery( $sql );
+
+
         if (!$dbHelper->getLastError()) {
             $categories = $dbHelper->getResultAsArray();
         } else {
             show_error( $content, $dbHelper->getLastError() );
         }
-
+        if ($search !== '') {
         // экранирование данных в запросе
         $search = mysqli_real_escape_string( $link, $search );
         $sql = 'SELECT l.id,l.title,l.start_price,l.image_url,l.description,date_end,c.name AS category FROM lots l ' .
@@ -35,24 +37,27 @@ if ($search !== '') {
 
 }
 
-if (isset($ads)) {
+$navigation = include_template( 'navigation.php', ['categories' => $categories] );
+
+if (isset($ads) && (count($ads)>0)) {
+
         $content = include_template( 'search.php', [
             'ads' => $ads ?? [],
             'search' => $search ?? '',
+            'navigation' => $navigation,
+            'categories' => $categories,
             'block_title' => 'Результаты поиска по запросу '
         ] );
 
-
 } else {
+
     $content = include_template( 'search.php', [
         'ads' => [],
         'search' => $search ?? '',
+        'navigation' => $navigation,
+        'categories' => $categories,
         'block_title' => 'По вашему запросу ничего не найдено '] );
 }
-
-
-
-$navigation = include_template( 'navigation.php', ['categories' => $categories] );
 
 $layout_content = include_template( 'layout.php', [
     'page_title' => 'Yeticave - Поиск лотов',
