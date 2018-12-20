@@ -1,3 +1,4 @@
+<main>
 <section class="lot-item container">
     <h2><?= esc($lot['title']) ?></h2>
     <div class="lot-item__content">
@@ -8,7 +9,10 @@
             <p class="lot-item__category">Категория: <span><?= $lot['category'] ?></span></p>
             <p class="lot-item__description"><?= esc($lot['description']) ?></p>
         </div>
-        <?php if (isset( $_SESSION['user'] ) && !isset($lot['winner_id'])): ?>
+
+        <?php  $owner_id = $lot['owner_id'] ?? null;
+
+        if (isset( $_SESSION['user'] ) && !isset($lot['winner_id']) && !($owner_id === $_SESSION['user']['id']) ): ?>
         <div class="lot-item__right">
             <div class="lot-item__state">
                 <div class="lot-item__timer timer">
@@ -73,3 +77,4 @@
 
         </div>
 </section>
+</main>

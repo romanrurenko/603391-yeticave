@@ -1,3 +1,5 @@
+<main>
+    <?= $navigation ?? '' ?>
 <div class="container">
     <section class="lots">
         <h2><?=$block_title ?? ''?>«<span><?= esc( $search ) ?></span>»</h2>
@@ -28,3 +30,5 @@
         </ul>
     </section>
 </div>
+
+</main>
