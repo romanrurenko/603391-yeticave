@@ -79,7 +79,6 @@ $current_bid = $bid['max_amount'];
 if (isset( $_SESSION['user'], $_POST['cost'] )) {
     $cost = $_POST['cost'];
 
-    $bid_errors['cost'] = check_cost( $cost );
 
     // проверяем значние на ошибки
     if (empty( $cost )) {
