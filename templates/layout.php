@@ -27,7 +27,9 @@
                 if (isset( $_SESSION['user'] )): ?>
                     <div class="user-menu__image">
                         <?php $avatar_url = $_SESSION['user']['avatar_url'] ?? 'img/user.jpg'; ?>
+                        <a href="my-bids.php">
                         <img src="<?= $avatar_url ?>" width="40" height="40" alt="Пользователь">
+                        </a>
                     </div>
                     <div class="user-menu__logged">
                         <p><?= esc( $_SESSION['user']['name'] ) ?></p>
@@ -49,24 +51,15 @@
         </div>
     </header>
 
-    <main class="container">
 
-        <?= $navigation ?? ''?>
+
+
         <?= $content ?>
-    </main>
+
 </div>
 
 <footer class="main-footer">
-    <nav class="nav">
-        <ul class="nav__list container">
-            <?php
-            foreach ($categories as $value): ?>
-                <li class="nav__item">
-                    <a href="all-lots.php?filter=<?=$value['id']?>"><?= $value['name'] ?></a>
-                </li>
-            <?php endforeach; ?>
-        </ul>
-    </nav>
+<?=$navigation??''?>
     <div class="main-footer__bottom container">
         <div class="main-footer__copyright">
             <p>© 2018, YetiCave</p>

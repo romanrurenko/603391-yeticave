@@ -1,8 +1,10 @@
-</section>
-<section class="lots">
-    <div class="lots__header">
-        <h2>Лоты по категориям </h2>
-    </div>
+<main>
+    <?=$navigation ?? ''?>
+
+    <div class="container">
+        <section class="lots">
+            <h2>Все лоты в категории <span>«<?=$categories[$cur_filter-1]['name']?>»</span></h2>
+
     <ul class="lots__list">
         <?php
         if (isset($ads)) {foreach ($ads as $key => $lot): ?>
@@ -21,7 +23,8 @@
                             <span class="lot__amount">Стартовая цена</span>
                             <span class="lot__cost"><?= format_price( esc( $lot['start_price'] ) ) ?></span>
                         </div>
-                        <div class="lot__timer timer">
+                        <?php $class_name = time_is_finish( time(), $lot['date_end']??'' );?>
+                        <div class="lot__timer timer <?=$class_name?>">
                             <?= esc(get_time_until_date_end( time(), $lot['date_end'] )); ?>
                         </div>
                     </div>
@@ -29,16 +32,9 @@
             </li>
         <?php endforeach;} ?>
     </ul>
-</section>
 
-<?php
-if ($pages_count>1): ?>
-<ul class="pagination-list">
-    <li class="pagination-item pagination-item-prev"><a>Назад</a></li>
-    <li class="pagination-item pagination-item-active"><a>1</a></li>
-    <li class="pagination-item"><a href="#">2</a></li>
-    <li class="pagination-item"><a href="#">3</a></li>
-    <li class="pagination-item"><a href="#">4</a></li>
-    <li class="pagination-item pagination-item-next"><a href="#">Вперед</a></li>
-</ul>
-<?php endif?>
+</section>
+    <?=$pagination ?? ''?>
+    </div>
+</main>
+

@@ -1,3 +1,4 @@
+<main class="container">
 <section class="promo">
     <h2 class="promo__title">Нужен стафф для катки?</h2>
     <p class="promo__text">На нашем интернет-аукционе ты найдёшь самое эксклюзивное сноубордическое и горнолыжное
@@ -34,7 +35,9 @@
                             <span class="lot__amount">Стартовая цена</span>
                             <span class="lot__cost"><?= format_price( esc( $lot['start_price'] ) ) ?></span>
                         </div>
-                        <div class="lot__timer timer">
+
+                        <?php $class_name = time_is_finish( time(), $lot['date_end']??'' );?>
+                        <div class="lot__timer timer <?=$class_name?>">
                             <?= esc(get_time_until_date_end( time(), $lot['date_end'] )); ?>
                         </div>
                     </div>
@@ -44,14 +47,5 @@
     </ul>
 </section>
 
-<?php
-if ($pages_count>1): ?>
-<ul class="pagination-list">
-    <li class="pagination-item pagination-item-prev"><a>Назад</a></li>
-    <li class="pagination-item pagination-item-active"><a>1</a></li>
-    <li class="pagination-item"><a href="#">2</a></li>
-    <li class="pagination-item"><a href="#">3</a></li>
-    <li class="pagination-item"><a href="#">4</a></li>
-    <li class="pagination-item pagination-item-next"><a href="#">Вперед</a></li>
-</ul>
-<?php endif?>
+<?=$pagination ?? ''?>
+    </main>

@@ -33,6 +33,7 @@ CREATE TABLE IF NOT EXISTS `lots` (
   `bid_step` int(11) unsigned NOT NULL,
   `owner_id` int(11) unsigned NOT NULL,
   `winner_id` int(11) unsigned DEFAULT NULL,
+  `win_bid_id` int(11) unsigned DEFAULT NULL,
   `category_id` int(11) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   FULLTEXT KEY `description` (`description`),

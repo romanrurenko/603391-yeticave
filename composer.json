@@ -6,5 +6,7 @@
             "email": "rroman7@yandex.ru"
         }
     ],
-    "require": {}
+    "require": {
+        "swiftmailer/swiftmailer": "^6.1"
+    }
 }

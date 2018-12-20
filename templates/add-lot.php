@@ -1,3 +1,4 @@
+<main>
 <?php $classname = (isset($errors) ) ? 'form--invalid' : ''; ?>
 <form class="form form--add-lot container <?= $classname ?>" action="add.php" method="post"
       enctype="multipart/form-data">
@@ -100,3 +101,4 @@
 
     <button type="submit" class="button">Добавить лот</button>
 </form>
+</main>

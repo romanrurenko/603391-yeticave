@@ -1,7 +1,13 @@
-<?php $classname = isset( $errors['wrong_password'] ) ? 'form--invalid' : '';
-$message = $errors['wrong_password'] ?? 'Вход'; ?>
+<main>
+    <?= $navigation??'' ?>
 
-<form class="form container   <?= $classname ?>" action="login.php" method="post" enctype="multipart/form-data">
+<?php $classname = isset( $errors['wrong_password'] ) ? 'form--invalid' : '';
+$message = $errors['wrong_password'] ?? 'Вход';
+$back_id = isset($back)? '?back='.$back:'';
+?>
+
+
+<form class="form container   <?= $classname ?>" action="login.php<?=$back_id?>" method="post" enctype="multipart/form-data">
     <h2><?=$message?></h2>
     <?php
     $classname = isset( $errors['email'] ) ? 'form__item--invalid' : '';
@@ -22,3 +28,4 @@ $message = $errors['wrong_password'] ?? 'Вход'; ?>
     <button type="submit" class="button">Войти</button>
 </form>
 
+</main>
